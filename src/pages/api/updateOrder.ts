@@ -13,11 +13,12 @@ export default async function handler(
     })
 
     try {
-        const { id } = req.query
-        const { status } = req.body
+        const id = parseInt(req.body.id)
+        const data = req.body.data
+        const dataToUpdate = req.body.dataToUpdate
         const [rows] = await connection.query(
-            'UPDATE orders SET order_status = ? WHERE order_id = ?',
-            [status, id]
+            `UPDATE orders SET ${dataToUpdate} = ? WHERE order_id = ?`,
+            [data, id]
         )
         return res.json(rows)
     } catch (error) {

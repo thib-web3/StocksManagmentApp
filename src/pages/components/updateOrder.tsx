@@ -8,8 +8,8 @@ const OrderForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await updateData(id, status);
-        console.log(res);
+        const dataToUpdate = 'order_status'
+        return await updateData(id, status, dataToUpdate);
     };
 
     return (

@@ -31,7 +31,7 @@ const Home = ({ orders }: Props) => {
       <main className={styles.main}>
         <h1>Main title</h1>
         <OrderPage orders={orders} />
-        {/* <OrderForm /> */}
+        <OrderForm />
       </main>
     </>
   );
