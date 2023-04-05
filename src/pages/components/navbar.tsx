@@ -37,7 +37,7 @@ const Navbar = () => {
                     </ul>
                 </nav>
                 <div className={styles.button}>
-                    <Link href="/auth">
+                    <Link href="/auth/login">
                         Login
                     </Link>
                 </div>

@@ -1,8 +1,5 @@
 import { Props } from '../types/types'
 
-
-
-
 export default function OrderPage({ orders }: Props) {
     return (
         <>
