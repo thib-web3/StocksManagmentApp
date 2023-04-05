@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '@/styles/navbar.module.css'
-
+import Link from 'next/link';
 
 const Navbar = () => {
     return (
@@ -9,15 +9,37 @@ const Navbar = () => {
                 <p className={styles.logo}>ECAM</p>
                 <nav className={styles.titles}>
                     <ul className={styles.ul}>
-                        <li className={styles.li}><a href="#" className={styles.a}>Home</a></li>
-                        <li className={styles.li}><a href="#" className={styles.a}>About</a></li>
-                        <li className={styles.li}><a href="#" className={styles.a}>Resources</a></li>
-                        <li className={styles.li}><a href="#" className={styles.a}>Pricing</a></li>
-                        <li className={styles.li}><a href="#" className={styles.a}>Contact</a></li>
+                        <li className={styles.li}>
+                            <Link href="/">
+                                <p className={styles.a}>Home</p>
+                            </Link>
+                        </li>
+                        <li className={styles.li}>
+                            <Link href="/about">
+                                <p className={styles.a}>About</p>
+                            </Link>
+                        </li>
+                        <li className={styles.li}>
+                            <Link href="/resources">
+                                <p className={styles.a}>Resources</p>
+                            </Link>
+                        </li>
+                        <li className={styles.li}>
+                            <Link href="/pricing">
+                                <p className={styles.a}>Pricing</p>
+                            </Link>
+                        </li>
+                        <li className={styles.li}>
+                            <Link href="/contact">
+                                <p className={styles.a}>Contact</p>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
                 <div className={styles.button}>
-                    Login
+                    <Link href="/auth">
+                        Login
+                    </Link>
                 </div>
             </div>
         </div>

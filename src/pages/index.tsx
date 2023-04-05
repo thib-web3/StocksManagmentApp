@@ -7,7 +7,7 @@ import OrderPage from './components/test'
 import OrderForm from './components/updateOrder'
 import Navbar from './components/navbar'
 import Hero from './components/hero'
-
+import Layout from './components/layout';
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const orders = await getData('orders');
   return {
@@ -23,24 +23,12 @@ const Home = ({ orders }: Props) => {
   }
 
   return (
-    <>
-      <Head>
-        <title>Projet BDD</title>
-        <meta name="description" content="Projet BDD" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Navbar />
-      <main className={styles.main}>
-        <div className={styles.container}>
-
-          <Hero />
-          <h1>Main title</h1>
-          <OrderPage orders={orders} />
-          <OrderForm />
-        </div>
-      </main>
-    </>
+    <Layout>
+      <Hero />
+      <h1>Main title</h1>
+      {/* <OrderPage orders={orders} />
+          <OrderForm /> */}
+    </Layout>
   );
 };
 
