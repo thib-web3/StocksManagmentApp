@@ -22,7 +22,7 @@ const Login = () => {
             if (password == confirmPassword) {
                 await addUser(email, password);
                 toast.success('Account successfully created!')
-                // router.push('/')
+                router.push('/')
             } else {
                 toast.error("Passwords doesn't match.")
             }

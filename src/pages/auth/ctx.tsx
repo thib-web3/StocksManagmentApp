@@ -1,43 +1,28 @@
 import { createContext, useContext, useState } from 'react';
-import mysql from 'mysql2/promise';
 
-interface IMySQLContext {
+interface MyContext {
     isConnected: boolean;
-    connection?: mysql.Connection;
 }
 
-const MySQLContext = createContext<IMySQLContext>({
+const Context = createContext<MyContext>({
     isConnected: false,
 });
 
-export const useMySQL = () => useContext(MySQLContext);
 
-export const MySQLProvider = ({ children }: any) => {
+export const Ctx = ({ children }: any) => {
     const [isConnected, setIsConnected] = useState(false);
-    const [connection, setConnection] = useState<mysql.Connection>();
 
     const connect = async () => {
-        const conn = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'password',
-            database: 'mydatabase',
-        });
-
-        setConnection(conn);
         setIsConnected(true);
     };
 
     const disconnect = async () => {
-        if (connection) {
-            await connection.end();
-            setIsConnected(false);
-        }
+        setIsConnected(false);
     };
 
     return (
-        <MySQLContext.Provider value={{ isConnected, connection }}>
+        <Context.Provider value={{ isConnected }}>
             {children}
-        </MySQLContext.Provider>
+        </Context.Provider>
     );
 };
