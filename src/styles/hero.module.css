@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.hero {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+
+}
+
+.left {
+    width: 100%;
+}
+
+.mainTitle {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 60px;
+
+}
+
+.right {
+    width: 100%;
+}
+
+.description {
+    margin-top: 10px;
+}
+
+.buttons {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+
+}
+
+.buttonCta {
+    display: flex;
+    color: white;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    border-radius: 16px;
+    background-color: #312783;
+    border: 2px solid #312783;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 50px;
+}
+
+.buttonDemo {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    border-radius: 16px;
+    border: 2px solid #505050;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 50px;
+}

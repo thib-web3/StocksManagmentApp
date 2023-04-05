@@ -5,7 +5,8 @@ import { Props } from './types/types'
 import { getData } from './calls/dbCalls'
 import OrderPage from './components/test'
 import OrderForm from './components/updateOrder'
-import Navbar from './components/navBar'
+import Navbar from './components/navbar'
+import Hero from './components/hero'
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const orders = await getData('orders');
@@ -31,9 +32,13 @@ const Home = ({ orders }: Props) => {
       </Head>
       <Navbar />
       <main className={styles.main}>
-        <h1>Main title</h1>
-        <OrderPage orders={orders} />
-        <OrderForm />
+        <div className={styles.container}>
+
+          <Hero />
+          <h1>Main title</h1>
+          <OrderPage orders={orders} />
+          <OrderForm />
+        </div>
       </main>
     </>
   );
