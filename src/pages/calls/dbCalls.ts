@@ -1,11 +1,3 @@
-import mysql from 'mysql2/promise'
-
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'tp3',
-})
 const localhost = 'http://localhost:3000'
 
 export const getData = async (data: string) => {
