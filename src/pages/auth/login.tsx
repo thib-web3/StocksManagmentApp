@@ -9,12 +9,11 @@ import { Ctx, useCtx } from '../auth/ctx';
 
 const isRegistered = async (email: string, password: string) => {
     const user = await getUser(email, password)
+    console.log(user)
     if (user.length > 0) {
         toast.success('Successfully Logged in!')
-        console.log('user existing')
         return user
     } else {
-        console.log('user not existing')
         toast.error('Wrong Email or Password.')
         return false
     }
@@ -24,10 +23,12 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter()
-    const { connect, disconnect, isConnected } = useCtx()
+    const { connect, disconnect, isConnected, setUserId, userId } = useCtx()
     const handleConnect = async () => {
         if (!isConnected) {
             await connect()
+            // TODO: set user id that i get from user
+
         } else {
             await disconnect()
         }
@@ -38,6 +39,7 @@ const Login = () => {
         const user = await isRegistered(email, password)
         if (user) {
             await handleConnect()
+            setUserId(user[0].id)
             router.push('/')
         }
     };
