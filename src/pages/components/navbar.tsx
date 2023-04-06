@@ -2,10 +2,10 @@ import React from 'react';
 import styles from '@/styles/navbar.module.css'
 import Link from 'next/link';
 import { useContext } from 'react';
-import { Ctx } from '../auth/ctx';
+import { useCtx } from '../auth/ctx';
 
 const Navbar = () => {
-    // const { isConnected } = useContext(Ctx);
+    const { isConnected } = useCtx()
     return (
         <div className={styles.navbar}>
             <div className={styles.container}>
@@ -39,12 +39,11 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </nav>
-                <div className={styles.button}>
-                    <Link href="/auth/login">
-                        {/* {isConnected ? 'Logged in' : 'Log in'} */}
-                        Login
-                    </Link>
-                </div>
+                <Link href="/auth/login">
+                    <div className={styles.button}>
+                        {isConnected ? 'Logged in' : 'Log in'}
+                    </div>
+                </Link>
             </div>
         </div>
     );
