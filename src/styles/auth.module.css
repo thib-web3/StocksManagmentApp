@@ -1,0 +1,8 @@
+.register {
+    font-style: italic;
+    color: #312783;
+}
+
+.register:hover {
+    text-decoration: underline;
+}

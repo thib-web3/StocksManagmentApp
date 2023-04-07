@@ -28,3 +28,47 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.buttonCta {
+  display: flex;
+  color: white;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  border-radius: 16px;
+  background-color: #312783;
+  border: 2px solid #312783;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.buttonCta:hover {
+  background-color: #322783ef;
+  border: 2px solid #322783ef;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 2px solid #505050;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.button:hover {
+  border: 2px solid #505050;
+}
+
+input:focus {
+  outline: none;
+}

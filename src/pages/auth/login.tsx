@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Layout from '../components/layout';
 import styles from '@/styles/auth.module.css'
 import Link from 'next/link';
@@ -27,10 +27,6 @@ const Login = () => {
     const handleConnect = async () => {
         if (!isConnected) {
             await connect()
-            // TODO: set user id that i get from user
-
-        } else {
-            await disconnect()
         }
     };
 
@@ -48,15 +44,15 @@ const Login = () => {
             <form>
                 <label>
                     Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input className='button' style={{ textAlign: 'left' }} type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input className='button' style={{ textAlign: 'left' }} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
                 <br />
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
                 <Link href="/auth/register">
                     <p className={styles.register}>Don&apos;t have an account ?</p>
                 </Link>

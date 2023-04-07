@@ -39,11 +39,20 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </nav>
-                <Link href="/auth/login">
-                    <div className={styles.button}>
-                        {isConnected ? 'Logged in' : 'Log in'}
-                    </div>
-                </Link>
+                {!isConnected ?
+                    <Link href="/auth/login">
+                        <div className={styles.button}>
+                            Log in
+                        </div>
+                    </Link>
+                    :
+                    <Link href="/auth/logout">
+                        <div className={styles.button}>
+                            Logged in
+                        </div>
+                    </Link>
+
+                }
             </div>
         </div>
     );
