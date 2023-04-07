@@ -3,6 +3,8 @@ import { Props } from './types/types'
 import { getData } from './calls/dbCalls'
 import Hero from './components/hero'
 import Layout from './components/layout';
+import { useCtx } from './auth/ctx';
+import Dashboard from './components/dashboard';
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const orders = await getData('orders');
   return {
@@ -13,14 +15,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 const Home = ({ orders }: Props) => {
+  const { isConnected } = useCtx()
   if (!orders) {
     return <div>Loading...</div>;
   }
 
   return (
     <Layout>
-      <Hero />
-      <h1>Main title</h1>
+      {!isConnected ?
+        <Hero />
+        :
+        <Dashboard />
+      }
       {/* <OrderPage orders={orders} />
           <OrderForm /> */}
     </Layout>

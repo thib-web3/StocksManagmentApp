@@ -3,9 +3,20 @@ import styles from '@/styles/navbar.module.css'
 import Link from 'next/link';
 import { useContext } from 'react';
 import { useCtx } from '../auth/ctx';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
-    const { isConnected } = useCtx()
+    const router = useRouter()
+    const { disconnect, isConnected, userId } = useCtx()
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        if (isConnected) {
+            {
+                await disconnect()
+                router.push('/')
+            }
+        }
+    };
     return (
         <div className={styles.navbar}>
             <div className={styles.container}>
@@ -46,11 +57,11 @@ const Navbar = () => {
                         </div>
                     </Link>
                     :
-                    <Link href="/auth/logout">
-                        <div className={styles.button}>
-                            Logged in
-                        </div>
-                    </Link>
+
+                    <div className={styles.button} onClick={handleSubmit}>
+                        Log out
+                    </div>
+
 
                 }
             </div>

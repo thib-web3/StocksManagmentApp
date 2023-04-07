@@ -39,20 +39,20 @@ const Login = () => {
             <form>
                 <label>
                     Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" className='button' style={{ textAlign: 'left', cursor: '' }} value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" className='button' style={{ textAlign: 'left' }} value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Confirm Password:
-                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input type="password" className='button' style={{ textAlign: 'left' }} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </label>
                 <br />
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
                 <Link href="/auth/login">
                     <p className={styles.register}>Already have an account ?</p>
                 </Link>
