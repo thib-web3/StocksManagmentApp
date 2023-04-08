@@ -29,7 +29,6 @@ const Login = () => {
             await connect()
         }
     };
-    console.log("user", userName)
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const user = await isRegistered(email, password)
