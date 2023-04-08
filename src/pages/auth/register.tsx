@@ -14,13 +14,14 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('')
     const router = useRouter()
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
         if (validateEmail(email)) {
             if (password == confirmPassword) {
-                await addUser(email, password);
+                await addUser(name, email, password);
                 toast.success('Account successfully created!')
                 router.push('/')
             } else {
@@ -37,6 +38,11 @@ const Login = () => {
 
         <Layout>
             <form>
+                <label>
+                    User Name:
+                    <input className='button' style={{ textAlign: 'left', cursor: '' }} value={name} onChange={(e) => setName(e.target.value)} />
+                </label>
+                <br />
                 <label>
                     Email:
                     <input type="email" className='button' style={{ textAlign: 'left', cursor: '' }} value={email} onChange={(e) => setEmail(e.target.value)} />

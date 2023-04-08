@@ -23,19 +23,20 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter()
-    const { connect, disconnect, isConnected, setUserId, userId } = useCtx()
+    const { connect, isConnected, setUserId, setUserName, userName } = useCtx()
     const handleConnect = async () => {
         if (!isConnected) {
             await connect()
         }
     };
-
+    console.log("user", userName)
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const user = await isRegistered(email, password)
         if (user) {
             await handleConnect()
             setUserId(user[0].id)
+            setUserName(user[0].name)
             router.push('/')
         }
     };

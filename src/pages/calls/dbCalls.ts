@@ -32,13 +32,17 @@ export const getUser = async (email: string, password: string) => {
     return await res.json()
 }
 
-export const addUser = async (email: string, password: string) => {
+export const addUser = async (
+    name: string,
+    email: string,
+    password: string
+) => {
     const res = await fetch(`${localhost}/api/addUser`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
     })
     return res
 }

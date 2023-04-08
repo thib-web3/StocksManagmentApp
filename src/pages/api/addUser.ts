@@ -11,12 +11,12 @@ export default async function addUser(
         database: 'tp3',
     })
     try {
+        const name = req.body.name
         const email = req.body.email
         const password = req.body.password
-        console.log('updating db', email, password)
         const [rows] = await connection.execute(
-            'INSERT INTO users (email, password) VALUES ( ?, ?)',
-            [email, password]
+            'INSERT INTO users (name, email, password) VALUES ( ?, ?, ?)',
+            [name, email, password]
         )
         return res.json(rows)
     } catch (error) {
