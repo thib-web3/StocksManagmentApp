@@ -29,9 +29,7 @@ const Login = () => {
             }
         } else {
             toast.error("Email is not acceptable.")
-
         }
-
     };
 
     return (

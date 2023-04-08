@@ -15,14 +15,14 @@
     width: 70%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .right {
     width: 30%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .title {
@@ -34,7 +34,7 @@
 .searchBar {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     background: #F4F8FB;
     border: 1px solid #F4F8FB;
     border-radius: 15px;
