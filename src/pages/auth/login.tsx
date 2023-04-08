@@ -51,11 +51,11 @@ const Login = () => {
                     Password:
                     <input className='button' style={{ textAlign: 'left' }} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
-                <br />
-                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
                 <Link href="/auth/register">
                     <p className={styles.register}>Don&apos;t have an account ?</p>
                 </Link>
+                <br />
+                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
             </form>
         </Layout>
     );

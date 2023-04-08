@@ -57,11 +57,11 @@ const Login = () => {
                     Confirm Password:
                     <input type="password" className='button' style={{ textAlign: 'left' }} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </label>
-                <br />
-                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
                 <Link href="/auth/login">
                     <p className={styles.register}>Already have an account ?</p>
                 </Link>
+                <br />
+                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
             </form>
         </Layout>
     );
