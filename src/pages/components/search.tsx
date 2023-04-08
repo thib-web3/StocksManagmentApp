@@ -7,16 +7,26 @@ import Image from 'next/image'
 const Search = () => {
     const [value, setValue] = useState('')
     const [isClicked, setIsClicked] = useState(false)
-    const [isOptionsOpen, setIsOptionsOpen] = useState([false, false])
+    const [isFilter1Checked, setIsFilter1Checked] = useState([false]);
+    const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
+    const [isOptionsOpen, setIsOptionsOpen] = useState([false])
 
     const handleSymbol = (index: number) => {
-        const newIsOptionsOpen = [...isOptionsOpen];
-        newIsOptionsOpen[index] = !newIsOptionsOpen[index];
-        setIsOptionsOpen(newIsOptionsOpen);
+        isOptionsOpen[index] = !isOptionsOpen[index];
+        setIsOptionsOpen(isOptionsOpen);
     };
     const handleClick = () => {
-        console.log(isClicked)
         setIsClicked(!isClicked)
+    }
+    const handleCheckbox1 = (index: number) => {
+        isFilter1Checked[index] = !isFilter1Checked[index];
+        console.log('isFilter1Checked', isFilter1Checked)
+        setIsFilter1Checked(isFilter1Checked)
+    }
+    const handleCheckbox2 = (index: number) => {
+        isFilter2Checked[index] = !isFilter2Checked[index];
+        console.log('isFilter2Checked', isFilter2Checked)
+        setIsFilter2Checked(isFilter2Checked)
     }
     return (
         <div className={styles.container}>
@@ -32,18 +42,72 @@ const Search = () => {
                         <Image src={downArrow} alt="Logo" width={15} height={9} />
                     </p>
                     <div className={styles.dropdownContent}>
-                        <div className={styles.options} onClick={() => handleSymbol(0)}>
+
+                        <div className={styles.options} style={{ marginTop: 10 }} onClick={() => handleSymbol(0)}>
                             <div className={styles.optionsContainer}>
                                 <div className={styles.optionsTitle}>Companies</div>
                                 <div className={styles.optionsSymbol}>{isOptionsOpen[0] ? '-' : '+'}</div>
                             </div>
                         </div>
+                        {isOptionsOpen[0] &&
+                            <div className={styles.underOptionsContainer}>
+                                <div className={styles.underOptionsContent} >
+                                    <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(0)}>
+                                        <p className={styles.optionsTitle}>Company1</p>
+                                        <input type="checkbox" checked={isFilter1Checked[0]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox1(1)}>
+                                    <div className={styles.underOptionsContentContainer}>
+                                        <p className={styles.optionsTitle}>Company2</p>
+                                        <input type="checkbox" checked={isFilter1Checked[1]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox1(2)}>
+                                    <div className={styles.underOptionsContentContainer}>
+                                        <p className={styles.optionsTitle}>Company3</p>
+                                        <input type="checkbox" checked={isFilter1Checked[2]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div className={styles.line}></div>
                         <div className={styles.options} onClick={() => handleSymbol(1)}>
                             <div className={styles.optionsContainer}>
                                 <div className={styles.optionsTitle}>Departments</div>
                                 <div className={styles.optionsSymbol}>{isOptionsOpen[1] ? '-' : '+'}</div>
                             </div>
                         </div>
+                        {isOptionsOpen[1] &&
+                            <div className={styles.underOptionsContainer}>
+                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(0)}>
+                                    <div className={styles.underOptionsContentContainer}>
+                                        <p className={styles.optionsTitle}>Department1</p>
+                                        <input type="checkbox" checked={isFilter2Checked[0]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(1)}>
+                                    <div className={styles.underOptionsContentContainer}>
+                                        <p className={styles.optionsTitle}>Department1</p>
+                                        <input type="checkbox" checked={isFilter2Checked[1]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(2)}>
+                                    <div className={styles.underOptionsContentContainer}>
+                                        <p className={styles.optionsTitle}>Department1</p>
+                                        <input type="checkbox" checked={isFilter2Checked[2]} onChange={() => { }} />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div className={styles.line}></div>
+                        <div className={styles.options} style={{ marginBottom: 10 }} onClick={() => handleSymbol(2)}>
+                            <div className={styles.optionsContainer}>
+                                <div className={styles.optionsTitle}>Price</div>
+                                <div className={styles.optionsSymbol}>{isOptionsOpen[2] ? '-' : '+'}</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
