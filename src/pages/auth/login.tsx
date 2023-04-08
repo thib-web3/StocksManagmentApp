@@ -55,7 +55,7 @@ const Login = () => {
                     <p className={styles.register}>Don&apos;t have an account ?</p>
                 </Link>
                 <br />
-                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
+                <button onClick={handleSubmit} className='buttonCta'>Log in</button>
             </form>
         </Layout>
     );

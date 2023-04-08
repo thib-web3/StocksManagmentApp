@@ -59,7 +59,7 @@ const Login = () => {
                     <p className={styles.register}>Already have an account ?</p>
                 </Link>
                 <br />
-                <button onClick={handleSubmit} className='buttonCta'>Submit</button>
+                <button onClick={handleSubmit} className='buttonCta'>Register</button>
             </form>
         </Layout>
     );
