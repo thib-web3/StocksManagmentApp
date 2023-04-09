@@ -15,7 +15,7 @@ const Search = () => {
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
 
-    const { setItems, items, searchbar, setSearchbar } = useCtx()
+    const { items, searchbar, setSearchbar } = useCtx()
 
     const handleSymbol = (index: number) => {
         isOptionsOpen[index] = !isOptionsOpen[index];
@@ -28,7 +28,15 @@ const Search = () => {
         isFilter1Checked[index] = !isFilter1Checked[index];
         console.log('isFilter1Checked', isFilter1Checked)
         setIsFilter1Checked(isFilter1Checked)
-        setSearchbar(data[index].company)
+        const checkFilters = isFilter1Checked.find((filter) =>
+            filter == true
+        )
+        console.log(checkFilters)
+        if (checkFilters) {
+            setSearchbar(data[index].company)
+        } else {
+            setSearchbar('')
+        }
     }
     const handleCheckbox2 = (index: number) => {
         isFilter2Checked[index] = !isFilter2Checked[index];
