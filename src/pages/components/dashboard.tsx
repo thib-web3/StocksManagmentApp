@@ -4,14 +4,14 @@ import Image from 'next/image'
 import user from '../../images/user.png'
 import Search from './search';
 import StatsSum from './statsSum';
-import Articles from './articles';
+import Items from './items';
 
 const Dashboard = () => {
     return (
         <div className={styles.dashboard}>
             <StatsSum />
             <Search />
-            <Articles />
+            <Items />
         </div>
     );
 };

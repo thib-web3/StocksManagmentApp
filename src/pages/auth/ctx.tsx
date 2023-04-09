@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { Item } from '../types/types';
 
 interface MyContext {
     isConnected: boolean;
@@ -8,6 +9,8 @@ interface MyContext {
     userName: string;
     connect: () => Promise<void>;
     disconnect: () => Promise<void>;
+    items: Item[],
+    setItems: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
 const Context = createContext<MyContext>({
@@ -18,6 +21,8 @@ const Context = createContext<MyContext>({
     userName: '',
     connect: async () => { },
     disconnect: async () => { },
+    items: [],
+    setItems: () => { }
 });
 
 
@@ -25,6 +30,7 @@ export const Ctx = ({ children }: any) => {
     const [isConnected, setIsConnected] = useState(false);
     const [userId, setUserId] = useState(0)
     const [userName, setUserName] = useState('')
+    const [items, setItems,] = useState<Item[]>([])
     const connect = async () => {
         setIsConnected(true);
     };
@@ -42,7 +48,9 @@ export const Ctx = ({ children }: any) => {
         userName,
         setUserName,
         connect,
-        disconnect
+        disconnect,
+        items,
+        setItems
     }
 
     return (

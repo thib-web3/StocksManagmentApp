@@ -8,3 +8,9 @@ export interface Order {
 export interface Props {
     orders: Order[]
 }
+
+export interface Item {
+    name: string
+    reference: string
+    company: string
+}
