@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import { useCtx } from '../auth/ctx';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const router = useRouter()
@@ -14,6 +15,7 @@ const Navbar = () => {
             {
                 await disconnect()
                 router.push('/')
+                toast.success('Successfully Logged out!')
             }
         }
     };

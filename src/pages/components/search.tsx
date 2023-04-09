@@ -1,11 +1,19 @@
 import styles from '@/styles/search.module.css'
 import { useCtx } from '../auth/ctx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import downArrow from '../../images/downArrow.png'
 import Image from 'next/image'
+import data from '../api/dataTest.json';
+
+interface Item {
+    name: string,
+    reference: string,
+    company: string
+}
 
 const Search = () => {
     const [value, setValue] = useState('')
+    const [results, setResults] = useState<Item[]>([])
     const [isClicked, setIsClicked] = useState(false)
     const [isFilter1Checked, setIsFilter1Checked] = useState([false]);
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
@@ -28,12 +36,27 @@ const Search = () => {
         console.log('isFilter2Checked', isFilter2Checked)
         setIsFilter2Checked(isFilter2Checked)
     }
+    useEffect(() => {
+        const filteredData: Item[] = data.filter((item) => {
+            return item.name.toLowerCase().includes(value.toLowerCase()) ||
+                item.reference.toLowerCase().startsWith(value.toLowerCase()) ||
+                item.company.toLowerCase().startsWith(value.toLowerCase())
+        })
+        setResults(filteredData)
+    }, [value])
     return (
         <div className={styles.container}>
             <div className={styles.left}>
                 <h2 className={styles.title}>🔎 Search</h2>
                 <input className={styles.searchBar} value={value} onChange={(e) => setValue(e.target.value)} placeholder='Search for articles, references and companies...' />
             </div>
+            {value.length > 0 && results.map((item) => (
+                <div key={item.reference}>
+                    <p>{item.name}</p>
+                    <p>{item.reference}</p>
+                    <p>{item.company}</p>
+                </div>
+            ))}
             <div className={styles.right}>
                 <h2 className={styles.title}>🎯 Filters</h2>
                 <div className={styles.filters} onClick={handleClick} style={{ textAlign: 'left' }}>

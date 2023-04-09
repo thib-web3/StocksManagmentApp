@@ -11,7 +11,6 @@ const isRegistered = async (email: string, password: string) => {
     const user = await getUser(email, password)
     console.log(user)
     if (user.length > 0) {
-        toast.success('Successfully Logged in!')
         return user
     } else {
         toast.error('Wrong Email or Password.')
@@ -37,6 +36,7 @@ const Login = () => {
             setUserId(user[0].id)
             setUserName(user[0].name)
             router.push('/')
+            toast.success('Successfully Logged in!')
         }
     };
     return (
