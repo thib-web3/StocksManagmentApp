@@ -8,14 +8,14 @@ import { Item } from '../types/types';
 
 
 const Search = () => {
-    const [value, setValue] = useState('')
+
     // const [results, setResults] = useState<Item[]>([])
     const [isClicked, setIsClicked] = useState(false)
     const [isFilter1Checked, setIsFilter1Checked] = useState([false]);
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
 
-    const { setItems, items } = useCtx()
+    const { setItems, items, searchbar, setSearchbar } = useCtx()
 
     const handleSymbol = (index: number) => {
         isOptionsOpen[index] = !isOptionsOpen[index];
@@ -28,25 +28,19 @@ const Search = () => {
         isFilter1Checked[index] = !isFilter1Checked[index];
         console.log('isFilter1Checked', isFilter1Checked)
         setIsFilter1Checked(isFilter1Checked)
+        setSearchbar(data[index].company)
     }
     const handleCheckbox2 = (index: number) => {
         isFilter2Checked[index] = !isFilter2Checked[index];
         console.log('isFilter2Checked', isFilter2Checked)
         setIsFilter2Checked(isFilter2Checked)
     }
-    useEffect(() => {
-        const filteredData: Item[] = data.filter((item) => {
-            return item.name.toLowerCase().includes(value.toLowerCase()) ||
-                item.reference.toLowerCase().startsWith(value.toLowerCase()) ||
-                item.company.toLowerCase().startsWith(value.toLowerCase())
-        })
-        setItems(filteredData)
-    }, [value])
+
     return (
         <div className={styles.container}>
             <div className={styles.left}>
                 <h2 className={styles.title}>🔎 Search</h2>
-                <input className={styles.searchBar} value={value} onChange={(e) => setValue(e.target.value)} placeholder='Search for articles, references and companies...' />
+                <input className={styles.searchBar} value={searchbar} onChange={(e) => setSearchbar(e.target.value)} placeholder='Search for articles, references and companies...' />
             </div>
             <div className={styles.right}>
                 <h2 className={styles.title}>🎯 Filters</h2>
@@ -65,24 +59,14 @@ const Search = () => {
                         </div>
                         {isOptionsOpen[0] &&
                             <div className={styles.underOptionsContainer}>
-                                <div className={styles.underOptionsContent} >
-                                    <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(0)}>
-                                        <p className={styles.optionsTitle}>Company1</p>
-                                        <input type="checkbox" checked={isFilter1Checked[0]} onChange={() => { }} />
+                                {data.map((item) => (
+                                    <div className={styles.underOptionsContent} key={item.company} >
+                                        <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(data.indexOf(item))}>
+                                            <p className={styles.optionsTitle}>{item.company}</p>
+                                            <input type="checkbox" checked={isFilter1Checked[data.indexOf(item)]} onChange={() => { }} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox1(1)}>
-                                    <div className={styles.underOptionsContentContainer}>
-                                        <p className={styles.optionsTitle}>Company2</p>
-                                        <input type="checkbox" checked={isFilter1Checked[1]} onChange={() => { }} />
-                                    </div>
-                                </div>
-                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox1(2)}>
-                                    <div className={styles.underOptionsContentContainer}>
-                                        <p className={styles.optionsTitle}>Company3</p>
-                                        <input type="checkbox" checked={isFilter1Checked[2]} onChange={() => { }} />
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         }
                         <div className={styles.line}></div>

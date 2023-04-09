@@ -5,6 +5,7 @@ import Hero from './components/hero'
 import Layout from './components/layout';
 import { useCtx } from './auth/ctx';
 import Dashboard from './components/dashboard';
+import ItemDetails from './components/itemDetails';
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const orders = await getData('orders');
   return {
@@ -29,6 +30,7 @@ const Home = ({ orders }: Props) => {
       }
       {/* <OrderPage orders={orders} />
           <OrderForm /> */}
+
     </Layout>
   );
 };

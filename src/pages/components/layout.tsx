@@ -3,11 +3,14 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import Navbar from './navbar'
 import { Toaster } from 'react-hot-toast';
+import { useCtx } from '../auth/ctx';
+import ItemDetails from './itemDetails';
 
 type Props = {
     children: ReactNode;
 };
 const Layout = ({ children }: Props) => {
+    const { itemDetailsClicked } = useCtx()
     return (
         <>
             <Head>
@@ -21,6 +24,7 @@ const Layout = ({ children }: Props) => {
                 reverseOrder={true}
             />
             <Navbar />
+            {itemDetailsClicked && <ItemDetails />}
             <main className={styles.main}>
                 <div className={styles.container}>
                     {children}

@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Item } from '../types/types';
+import data from '../api/dataTest.json';
 
 interface MyContext {
     isConnected: boolean;
@@ -11,6 +12,12 @@ interface MyContext {
     disconnect: () => Promise<void>;
     items: Item[],
     setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+    searchbar: string;
+    setSearchbar: React.Dispatch<React.SetStateAction<string>>;
+    selectedItem: Item | undefined;
+    setSelectedItem: React.Dispatch<React.SetStateAction<Item | undefined>>;
+    itemDetailsClicked: boolean;
+    setItemDetailsClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Context = createContext<MyContext>({
@@ -22,7 +29,13 @@ const Context = createContext<MyContext>({
     connect: async () => { },
     disconnect: async () => { },
     items: [],
-    setItems: () => { }
+    setItems: () => { },
+    setSearchbar: () => { },
+    searchbar: '',
+    selectedItem: undefined,
+    setSelectedItem: () => { },
+    itemDetailsClicked: false,
+    setItemDetailsClicked: () => { }
 });
 
 
@@ -31,6 +44,10 @@ export const Ctx = ({ children }: any) => {
     const [userId, setUserId] = useState(0)
     const [userName, setUserName] = useState('')
     const [items, setItems,] = useState<Item[]>([])
+    const [searchbar, setSearchbar] = useState('')
+    const [selectedItem, setSelectedItem] = useState<Item | undefined>()
+    const [itemDetailsClicked, setItemDetailsClicked] = useState(false);
+
     const connect = async () => {
         setIsConnected(true);
     };
@@ -41,6 +58,15 @@ export const Ctx = ({ children }: any) => {
         setUserName('')
     };
 
+    useEffect(() => {
+        const filteredData: Item[] = data.filter((item) => {
+            return item.name.toLowerCase().includes(searchbar.toLowerCase()) ||
+                item.reference.toLowerCase().startsWith(searchbar.toLowerCase()) ||
+                item.company.toLowerCase().startsWith(searchbar.toLowerCase())
+        })
+        setItems(filteredData)
+    }, [searchbar])
+
     const values = {
         isConnected,
         setUserId,
@@ -50,9 +76,14 @@ export const Ctx = ({ children }: any) => {
         connect,
         disconnect,
         items,
-        setItems
+        setItems,
+        searchbar,
+        setSearchbar,
+        selectedItem,
+        setSelectedItem,
+        itemDetailsClicked,
+        setItemDetailsClicked
     }
-
     return (
         <Context.Provider value={values}>
             {children}

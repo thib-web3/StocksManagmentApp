@@ -35,7 +35,7 @@
 }
 
 .article:hover {
-    background: #eff2f5;
+    background: #e6e9ec;
     transition: all ease-in-out 0.3s;
 }
 
@@ -51,7 +51,6 @@
     border-radius: 20px;
     width: 180px;
     height: 180px;
-    background-color: aquamarine;
     display: flex;
     justify-content: center;
     align-items: center;
