@@ -68,6 +68,7 @@ export const Ctx = ({ children }: any) => {
         const filteredData: Article[] | undefined = data?.filter((item: Article) => {
             return item.ART_ID.toString().toLowerCase().includes(searchbar.toString().toLowerCase()) ||
                 item.REF.toLowerCase().startsWith(searchbar.toLowerCase()) ||
+                item.Description.toLowerCase().startsWith(searchbar.toLowerCase()) ||
                 item.Supplier.toLowerCase().startsWith(searchbar.toLowerCase())
         })
         if (filteredData !== undefined) {

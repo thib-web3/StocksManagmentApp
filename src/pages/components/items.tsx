@@ -3,9 +3,16 @@ import Image from 'next/image'
 import box from '../../images/test.png'
 import { useCtx } from '../auth/ctx';
 import { Article, Item } from '../types/types';
+import { useState } from 'react';
 
 const Items = () => {
     const { items, setSelectedItem, setItemDetailsClicked, itemDetailsClicked } = useCtx()
+    const [slice, setSlice] = useState(12)
+    const handleSlice = () => {
+        setSlice(slice + 12)
+        console.log(slice)
+    }
+
     const openDetails = (item: Article) => {
         setItemDetailsClicked(!itemDetailsClicked)
         setSelectedItem(item)
@@ -16,7 +23,7 @@ const Items = () => {
             <div className={styles.test}>
 
                 <div className={styles.articles} style={{ justifyContent: items.length < 4 ? 'flex-start' : 'space-around' }}>
-                    {items.map((item) => (
+                    {items.slice(0, slice).map((item) => (
                         <div key={item.ART_ID}>
                             <div className={styles.article} onClick={() => openDetails(item)}>
                                 <div className={styles.top}>
@@ -35,6 +42,10 @@ const Items = () => {
                     ))}
 
                 </div>
+            </div>
+            <div className={styles.buttonContainer}>
+
+                <div className={styles.addSlice} onClick={handleSlice}>Load more</div>
             </div>
         </div>
     );

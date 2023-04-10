@@ -16,9 +16,11 @@ const ItemDetails = () => {
                 <h2 className={styles.title}>📦 Items Details</h2>
                 <div className={styles.article}>
                     <div className={styles.name}>Name: {item?.Description}</div>
+                    <div className={styles.details}>ID: {item?.ART_ID}</div>
                     <div className={styles.ref}>Reference: #{item?.REF}</div>
                     <div className={styles.ref}>Company: {item?.Supplier}</div>
-                    <div className={styles.details}>Other Details...</div>
+                    <div className={styles.details}>Dimensions: {item?.Dimensions}</div>
+                    <div className={styles.details}>Price: {item?.Price}</div>
                 </div>
             </div>
         </div>

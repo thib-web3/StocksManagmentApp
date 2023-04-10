@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: center;
+
 }
 
 .test {
@@ -44,6 +46,7 @@
     font-size: 24px;
     line-height: 36px;
     margin: 0;
+    text-align: left;
 }
 
 .imgContainer {
@@ -73,6 +76,12 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 21px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+
 }
 
 .ref {
@@ -81,6 +90,10 @@
     font-size: 12px;
     line-height: 18px;
     color: #BABABA;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
 }
 
 .details {
@@ -98,5 +111,27 @@
     position: absolute;
     right: 15px;
     bottom: 15px;
+    cursor: pointer;
+}
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.addSlice {
+    background: linear-gradient(90deg, #403698 4.29%, #0C0169 115.23%);
+    border-radius: 53px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #FFFFFF;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
     cursor: pointer;
 }

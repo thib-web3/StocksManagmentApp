@@ -5,7 +5,7 @@ import user from '../../images/user.png'
 import Search from './search';
 
 const StatsSum = () => {
-    const { userName } = useCtx()
+    const { userName, items } = useCtx()
     return (
         <div className={styles.dashboard}>
 
@@ -19,8 +19,8 @@ const StatsSum = () => {
                 </div>
                 <div className={styles.right}>
                     <div className={styles.data}>
-                        <div className={styles.number}>12</div>
-                        <div className={styles.subject}>Total References</div>
+                        <div className={styles.number}>{items.length}</div>
+                        <div className={styles.subject}>Total Articles</div>
                     </div>
                     <div className={styles.data}>
                         <div className={styles.number}>329</div>
