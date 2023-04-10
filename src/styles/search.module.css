@@ -135,6 +135,8 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
+    max-height: 200px;
+    overflow: scroll;
 }
 
 .underOptionsContent {
