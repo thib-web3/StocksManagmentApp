@@ -30,9 +30,6 @@ const Search = ({ articles }: Articles) => {
     const handleCheckbox1 = async (item: Supplier, index: number) => {
         isFilter1Checked[index] = !isFilter1Checked[index];
         setIsFilter1Checked(isFilter1Checked)
-        // const count = isFilter1Checked.reduce((a, b) => b ? a + 1 : a, 0);
-
-
 
         const suppliersSelected = suppliers?.filter((item: Supplier) => {
             return isFilter1Checked[suppliers.indexOf(item)];
@@ -69,13 +66,19 @@ const Search = ({ articles }: Articles) => {
 
     const handleSearchBar = (e: any) => {
         setSearchbar(e.target.value)
-        if (searchbar == '') {
-            // setData(articles)
-        }
+
     }
     useEffect(() => {
-        // setItems(articles)
-    },)
+        const checkFilters = isFilter1Checked.find((filter) =>
+            filter == true
+        )
+        if (searchbar == '' && !checkFilters) {
+            setData(articles)
+            setItems(articles)
+        }
+
+    }, [])
+
     return (
         <div className={styles.container}>
             <div className={styles.left}>
