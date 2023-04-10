@@ -1,39 +1,49 @@
 import styles from '@/styles/search.module.css'
 import { useCtx } from '../auth/ctx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import downArrow from '../../images/downArrow.png'
 import Image from 'next/image'
-import { Articles } from '../types/types';
+import { Articles, Supplier } from '../types/types';
+import { getData, getSortedArticles } from '../calls/dbCalls';
 
 const Search = ({ articles }: Articles) => {
-    console.log('searchhh', articles)
     const [isClicked, setIsClicked] = useState(false)
     const [isFilter1Checked, setIsFilter1Checked] = useState([false]);
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
+    const [suppliers, setSuppliers] = useState<Supplier[]>([])
+    const [supplierName, setSupplierName] = useState('')
+    const { searchbar, setSearchbar, setData, setItems } = useCtx()
 
-    const { items, searchbar, setSearchbar, setData, data } = useCtx()
-    setData(articles)
 
-    const handleSymbol = (index: number) => {
+
+    const handleSymbol = async (index: number) => {
+        if (index == 0) {
+            const supp = await getData('suppliers')
+            setSuppliers(supp)
+        }
         isOptionsOpen[index] = !isOptionsOpen[index];
         setIsOptionsOpen(isOptionsOpen);
     };
     const handleClick = () => {
         setIsClicked(!isClicked)
     }
-    const handleCheckbox1 = (index: number) => {
+    const handleCheckbox1 = async (item: Supplier, index: number) => {
         isFilter1Checked[index] = !isFilter1Checked[index];
-        console.log('isFilter1Checked', isFilter1Checked)
         setIsFilter1Checked(isFilter1Checked)
+
+        const sortedArticles = await getSortedArticles('Supplier', item.NOM)
+        setData(sortedArticles)
+        setItems(sortedArticles)
+
         const checkFilters = isFilter1Checked.find((filter) =>
             filter == true
         )
-        console.log(checkFilters)
-        if (checkFilters) {
-            setSearchbar(articles[index].Supplier)
-        } else {
+
+        if (!checkFilters) {
             setSearchbar('')
+            setData(articles)
+            setItems(articles)
         }
     }
     const handleCheckbox2 = (index: number) => {
@@ -42,11 +52,20 @@ const Search = ({ articles }: Articles) => {
         setIsFilter2Checked(isFilter2Checked)
     }
 
+    const handleSearchBar = (e: any) => {
+        setSearchbar(e.target.value)
+        if (searchbar == '') {
+            // setData(articles)
+        }
+    }
+    useEffect(() => {
+        // setItems(articles)
+    },)
     return (
         <div className={styles.container}>
             <div className={styles.left}>
                 <h2 className={styles.title}>🔎 Search</h2>
-                <input className={styles.searchBar} value={searchbar} onChange={(e) => setSearchbar(e.target.value)} placeholder='Search for articles, references and companies...' />
+                <input className={styles.searchBar} value={searchbar} onChange={(e) => handleSearchBar(e)} placeholder='Search for articles and references...' />
             </div>
             <div className={styles.right}>
                 <h2 className={styles.title}>🎯 Filters</h2>
@@ -65,11 +84,11 @@ const Search = ({ articles }: Articles) => {
                         </div>
                         {isOptionsOpen[0] &&
                             <div className={styles.underOptionsContainer}>
-                                {articles.map((item) => (
-                                    <div className={styles.underOptionsContent} key={item.ART_ID} >
-                                        <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(articles.indexOf(item))}>
-                                            <p className={styles.optionsTitle}>{item.Supplier}</p>
-                                            <input type="checkbox" checked={isFilter1Checked[articles.indexOf(item)]} onChange={() => { }} />
+                                {suppliers?.map((item: Supplier) => (
+                                    <div className={styles.underOptionsContent} key={item.FOU_ID} >
+                                        <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(item, suppliers.indexOf(item))}>
+                                            <p className={styles.optionsTitle}>{item.NOM}</p>
+                                            <input type="checkbox" checked={isFilter1Checked[suppliers.indexOf(item)]} onChange={() => { }} />
                                         </div>
                                     </div>
                                 ))}

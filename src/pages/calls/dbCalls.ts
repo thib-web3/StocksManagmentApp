@@ -5,19 +5,15 @@ export const getData = async (data: string) => {
     return await res.json()
 }
 
-export const updateData = async (
-    id: number,
-    data: string,
-    dataToUpdate: string
-) => {
-    const res = await fetch(`${localhost}/api/updateOrder`, {
+export const getSortedArticles = async (query: string, data: string) => {
+    const res = await fetch(`${localhost}/api/sortedArticles`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, data, dataToUpdate }),
+        body: JSON.stringify({ query, data }),
     })
-    return res
+    return res.json()
 }
 
 export const getUser = async (email: string, password: string) => {

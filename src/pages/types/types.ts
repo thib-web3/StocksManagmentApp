@@ -16,3 +16,12 @@ export interface Item {
     reference: string
     company: string
 }
+
+export interface Supplier {
+    FOU_ID: number
+    NOM: string
+    VIL: string
+    EMAIL: string
+    TEL: string
+    PAY: string
+}
