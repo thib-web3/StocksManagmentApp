@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+dotenv.config()
 
-export default async function handler(
+export default async function getArticles(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -9,11 +11,11 @@ export default async function handler(
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'tp3',
+        database: process.env.DB_NAME,
     })
 
     try {
-        const [rows] = await connection.query('SELECT * FROM orders')
+        const [rows] = await connection.query('SELECT * FROM articles')
         return res.json(rows)
     } catch (error) {
         console.error('Error getting users:', error)

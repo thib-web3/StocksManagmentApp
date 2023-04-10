@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default async function handler(
     req: NextApiRequest,
@@ -9,7 +11,7 @@ export default async function handler(
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'tp3',
+        database: process.env.DB_NAME,
     })
 
     try {

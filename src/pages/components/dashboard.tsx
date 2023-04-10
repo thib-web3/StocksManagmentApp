@@ -1,16 +1,16 @@
 import styles from '@/styles/dashboard.module.css'
-import { useCtx } from '../auth/ctx';
-import Image from 'next/image'
-import user from '../../images/user.png'
 import Search from './search';
 import StatsSum from './statsSum';
 import Items from './items';
+import { Articles } from '../types/types';
 
-const Dashboard = () => {
+
+const Dashboard = ({ articles }: Articles) => {
+
     return (
         <div className={styles.dashboard}>
             <StatsSum />
-            <Search />
+            <Search articles={articles} />
             <Items />
         </div>
     );

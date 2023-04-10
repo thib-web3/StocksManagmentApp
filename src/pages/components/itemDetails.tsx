@@ -15,9 +15,9 @@ const ItemDetails = () => {
             <div className={styles.content} onClick={(event) => event.stopPropagation()}>
                 <h2 className={styles.title}>📦 Items Details</h2>
                 <div className={styles.article}>
-                    <div className={styles.name}>Name: {item?.name}</div>
-                    <div className={styles.ref}>Reference: #{item?.reference}</div>
-                    <div className={styles.ref}>Company: {item?.company}</div>
+                    <div className={styles.name}>Name: {item?.Description}</div>
+                    <div className={styles.ref}>Reference: #{item?.REF}</div>
+                    <div className={styles.ref}>Company: {item?.Supplier}</div>
                     <div className={styles.details}>Other Details...</div>
                 </div>
             </div>

@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+dotenv.config()
 export default async function addUser(
     req: NextApiRequest,
     res: NextApiResponse
@@ -8,7 +10,7 @@ export default async function addUser(
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'tp3',
+        database: process.env.DB_NAME,
     })
     try {
         const name = req.body.name

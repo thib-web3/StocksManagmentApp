@@ -1,21 +1,19 @@
 import styles from '@/styles/search.module.css'
 import { useCtx } from '../auth/ctx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import downArrow from '../../images/downArrow.png'
 import Image from 'next/image'
-import data from '../api/dataTest.json';
-import { Item } from '../types/types';
+import { Articles } from '../types/types';
 
-
-const Search = () => {
-
-    // const [results, setResults] = useState<Item[]>([])
+const Search = ({ articles }: Articles) => {
+    console.log('searchhh', articles)
     const [isClicked, setIsClicked] = useState(false)
     const [isFilter1Checked, setIsFilter1Checked] = useState([false]);
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
 
-    const { items, searchbar, setSearchbar } = useCtx()
+    const { items, searchbar, setSearchbar, setData, data } = useCtx()
+    setData(articles)
 
     const handleSymbol = (index: number) => {
         isOptionsOpen[index] = !isOptionsOpen[index];
@@ -33,7 +31,7 @@ const Search = () => {
         )
         console.log(checkFilters)
         if (checkFilters) {
-            setSearchbar(data[index].company)
+            setSearchbar(articles[index].Supplier)
         } else {
             setSearchbar('')
         }
@@ -67,11 +65,11 @@ const Search = () => {
                         </div>
                         {isOptionsOpen[0] &&
                             <div className={styles.underOptionsContainer}>
-                                {data.map((item) => (
-                                    <div className={styles.underOptionsContent} key={item.company} >
-                                        <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(data.indexOf(item))}>
-                                            <p className={styles.optionsTitle}>{item.company}</p>
-                                            <input type="checkbox" checked={isFilter1Checked[data.indexOf(item)]} onChange={() => { }} />
+                                {articles.map((item) => (
+                                    <div className={styles.underOptionsContent} key={item.ART_ID} >
+                                        <div className={styles.underOptionsContentContainer} onClick={() => handleCheckbox1(articles.indexOf(item))}>
+                                            <p className={styles.optionsTitle}>{item.Supplier}</p>
+                                            <input type="checkbox" checked={isFilter1Checked[articles.indexOf(item)]} onChange={() => { }} />
                                         </div>
                                     </div>
                                 ))}

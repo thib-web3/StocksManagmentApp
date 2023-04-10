@@ -19,6 +19,10 @@ const Navbar = () => {
             }
         }
     };
+
+    const sendError = () => {
+        toast.error("Please log in first.")
+    }
     return (
         <div className={styles.navbar}>
             <div className={styles.container}>
@@ -31,24 +35,20 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className={styles.li}>
-                            <Link href="/about">
-                                <p className={styles.a}>About</p>
-                            </Link>
+                            {isConnected ?
+                                <Link href="/">
+                                    <p className={styles.a}>Dashboard</p>
+                                </Link>
+                                :
+                                <div className={styles.notLinked} onClick={sendError}>
+                                    <p className={styles.a} >Dashboard</p>
+                                </div>
+                            }
                         </li>
                         <li className={styles.li}>
-                            <Link href="/resources">
-                                <p className={styles.a}>Resources</p>
-                            </Link>
-                        </li>
-                        <li className={styles.li}>
-                            <Link href="/pricing">
-                                <p className={styles.a}>Pricing</p>
-                            </Link>
-                        </li>
-                        <li className={styles.li}>
-                            <Link href="/contact">
+                            <div className={styles.notLinked} onClick={() => router.push('mailto:contact@thibautlehmann.dev')}>
                                 <p className={styles.a}>Contact</p>
-                            </Link>
+                            </div>
                         </li>
                     </ul>
                 </nav>

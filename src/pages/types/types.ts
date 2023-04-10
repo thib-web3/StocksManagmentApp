@@ -1,12 +1,14 @@
-export interface Order {
-    order_id: number
-    order_time: string
-    order_completion_time: string
-    order_status: string
+export interface Article {
+    ART_ID: number
+    REF: string
+    Description: string
+    Price: string
+    Dimensions: string
+    Supplier: string
 }
 
-export interface Props {
-    orders: Order[]
+export interface Articles {
+    articles: Article[]
 }
 
 export interface Item {

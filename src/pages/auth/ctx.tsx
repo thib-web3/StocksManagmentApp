@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Item } from '../types/types';
-import data from '../api/dataTest.json';
+import { Article, Item, Articles } from '../types/types';
 
 interface MyContext {
     isConnected: boolean;
@@ -10,14 +9,16 @@ interface MyContext {
     userName: string;
     connect: () => Promise<void>;
     disconnect: () => Promise<void>;
-    items: Item[],
-    setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+    items: Article[],
+    setItems: React.Dispatch<React.SetStateAction<Article[]>>;
     searchbar: string;
     setSearchbar: React.Dispatch<React.SetStateAction<string>>;
-    selectedItem: Item | undefined;
-    setSelectedItem: React.Dispatch<React.SetStateAction<Item | undefined>>;
+    selectedItem: Article | undefined;
+    setSelectedItem: React.Dispatch<React.SetStateAction<Article | undefined>>;
     itemDetailsClicked: boolean;
     setItemDetailsClicked: React.Dispatch<React.SetStateAction<boolean>>;
+    data: Article[] | undefined;
+    setData: React.Dispatch<React.SetStateAction<Article[] | undefined>>
 }
 
 const Context = createContext<MyContext>({
@@ -35,7 +36,10 @@ const Context = createContext<MyContext>({
     selectedItem: undefined,
     setSelectedItem: () => { },
     itemDetailsClicked: false,
-    setItemDetailsClicked: () => { }
+    setItemDetailsClicked: () => { },
+    data: undefined,
+    setData: () => { }
+
 });
 
 
@@ -43,10 +47,11 @@ export const Ctx = ({ children }: any) => {
     const [isConnected, setIsConnected] = useState(false);
     const [userId, setUserId] = useState(0)
     const [userName, setUserName] = useState('')
-    const [items, setItems,] = useState<Item[]>([])
+    const [items, setItems,] = useState<Article[]>([])
     const [searchbar, setSearchbar] = useState('')
-    const [selectedItem, setSelectedItem] = useState<Item | undefined>()
+    const [selectedItem, setSelectedItem] = useState<Article | undefined>()
     const [itemDetailsClicked, setItemDetailsClicked] = useState(false);
+    const [data, setData] = useState<Article[] | undefined>()
 
     const connect = async () => {
         setIsConnected(true);
@@ -58,13 +63,17 @@ export const Ctx = ({ children }: any) => {
         setUserName('')
     };
 
+
     useEffect(() => {
-        const filteredData: Item[] = data.filter((item) => {
-            return item.name.toLowerCase().includes(searchbar.toLowerCase()) ||
-                item.reference.toLowerCase().startsWith(searchbar.toLowerCase()) ||
-                item.company.toLowerCase().startsWith(searchbar.toLowerCase())
+        const filteredData: Article[] | undefined = data?.filter((item: Article) => {
+            return item.ART_ID.toString().toLowerCase().includes(searchbar.toString().toLowerCase()) ||
+                item.REF.toLowerCase().startsWith(searchbar.toLowerCase()) ||
+                item.Supplier.toLowerCase().startsWith(searchbar.toLowerCase())
         })
-        setItems(filteredData)
+        if (filteredData !== undefined) {
+            console.log('filteredData', filteredData)
+            setItems(filteredData)
+        }
     }, [searchbar])
 
     const values = {
@@ -82,7 +91,9 @@ export const Ctx = ({ children }: any) => {
         selectedItem,
         setSelectedItem,
         itemDetailsClicked,
-        setItemDetailsClicked
+        setItemDetailsClicked,
+        data,
+        setData
     }
     return (
         <Context.Provider value={values}>
