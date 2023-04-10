@@ -174,3 +174,55 @@
     background-color: #eee;
     width: 90%;
 }
+
+.priceContainer {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    padding: 10px 10px;
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+    margin: 4px 2px;
+    cursor: auto;
+    height: 40px;
+}
+
+.price:hover {
+
+    background-color: #eee;
+
+}
+
+.buttonPrice {
+    display: flex;
+    color: white;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    border-radius: 16px;
+    background-color: #312783;
+    border: 2px solid #312783;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    height: 40px;
+}
+
+.buttonPrice:hover {
+    background-color: rgb(41, 32, 109);
+    border: 2px solid rgba(41, 32, 109);
+}

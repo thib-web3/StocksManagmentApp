@@ -3,8 +3,9 @@ import { useCtx } from '../auth/ctx';
 import { useEffect, useState } from 'react';
 import downArrow from '../../images/downArrow.png'
 import Image from 'next/image'
-import { Articles, Supplier } from '../types/types';
+import { Article, Articles, Supplier } from '../types/types';
 import { getData, getSortedArticles } from '../calls/dbCalls';
+import { toast } from 'react-hot-toast';
 
 const Search = ({ articles }: Articles) => {
     const [isClicked, setIsClicked] = useState(false)
@@ -13,8 +14,9 @@ const Search = ({ articles }: Articles) => {
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
     const [suppliers, setSuppliers] = useState<Supplier[]>([])
     const [supplierName, setSupplierName] = useState('')
-    const { searchbar, setSearchbar, setData, setItems, data } = useCtx()
-
+    const { searchbar, setSearchbar, setData, setItems, data, items } = useCtx()
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(0)
 
     const handleSymbol = async (index: number) => {
         if (index == 0) {
@@ -62,11 +64,57 @@ const Search = ({ articles }: Articles) => {
         isFilter2Checked[index] = !isFilter2Checked[index];
         console.log('isFilter2Checked', isFilter2Checked)
         setIsFilter2Checked(isFilter2Checked)
+        let newArr = []
+        console.log(index)
+        if (index = 0) {
+            newArr = sortByPriceAscending(items)
+        } else {
+            newArr = sortByPriceDescending(items)
+        }
+        console.log(newArr)
     }
 
     const handleSearchBar = (e: any) => {
         setSearchbar(e.target.value)
 
+    }
+
+    const handleMinPrice = (e: any) => {
+        const data = parseFloat(e.target.value)
+        if (!isNaN(data)) {
+            setMinPrice(data)
+        }
+    }
+    const handleMaxPrice = (e: any) => {
+        const data = parseFloat(e.target.value)
+        if (!isNaN(data)) {
+            setMaxPrice(data)
+        }
+    }
+
+    const handleFilterPrice = () => {
+        console.log(minPrice, maxPrice)
+        if (minPrice > 0 && maxPrice > 0) {
+            if (maxPrice > minPrice) {
+                const arr = items.filter((item: Article) => parseFloat(item.Price) >= minPrice && parseFloat(item.Price) <= maxPrice)
+                setData(arr)
+                setItems(arr)
+                toast.success(`Articles sorted from ${minPrice}$ to ${maxPrice}$`)
+            } else {
+
+                toast.error('Max price should be higher than min price!')
+            }
+        } else {
+            toast.error('Wrong min and max price!')
+        }
+    }
+    // todo: descending not working
+    function sortByPriceDescending(items: Article[]) {
+        return items.sort((a, b) => parseFloat(b.Price) - parseFloat(a.Price));
+    }
+
+    function sortByPriceAscending(items: Article[]) {
+        return items.sort((a, b) => parseFloat(a.Price) - parseFloat(b.Price));
     }
     useEffect(() => {
         const checkFilters = isFilter1Checked.find((filter) =>
@@ -115,7 +163,7 @@ const Search = ({ articles }: Articles) => {
                         <div className={styles.line}></div>
                         <div className={styles.options} onClick={() => handleSymbol(1)}>
                             <div className={styles.optionsContainer}>
-                                <div className={styles.optionsTitle}>Departments</div>
+                                <div className={styles.optionsTitle}>Price Direction</div>
                                 <div className={styles.optionsSymbol}>{isOptionsOpen[1] ? '-' : '+'}</div>
                             </div>
                         </div>
@@ -123,20 +171,14 @@ const Search = ({ articles }: Articles) => {
                             <div className={styles.underOptionsContainer}>
                                 <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(0)}>
                                     <div className={styles.underOptionsContentContainer}>
-                                        <p className={styles.optionsTitle}>Department1</p>
+                                        <p className={styles.optionsTitle}>LOW to HIGH</p>
                                         <input type="checkbox" checked={isFilter2Checked[0]} onChange={() => { }} />
                                     </div>
                                 </div>
                                 <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(1)}>
                                     <div className={styles.underOptionsContentContainer}>
-                                        <p className={styles.optionsTitle}>Department1</p>
+                                        <p className={styles.optionsTitle}>HIGH to LOW</p>
                                         <input type="checkbox" checked={isFilter2Checked[1]} onChange={() => { }} />
-                                    </div>
-                                </div>
-                                <div className={styles.underOptionsContent} onClick={() => handleCheckbox2(2)}>
-                                    <div className={styles.underOptionsContentContainer}>
-                                        <p className={styles.optionsTitle}>Department1</p>
-                                        <input type="checkbox" checked={isFilter2Checked[2]} onChange={() => { }} />
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +186,20 @@ const Search = ({ articles }: Articles) => {
                         <div className={styles.line}></div>
                         <div className={styles.options} style={{ marginBottom: 10 }} onClick={() => handleSymbol(2)}>
                             <div className={styles.optionsContainer}>
-                                <div className={styles.optionsTitle}>Price</div>
+                                <div className={styles.optionsTitle}>Price Interval</div>
                                 <div className={styles.optionsSymbol}>{isOptionsOpen[2] ? '-' : '+'}</div>
                             </div>
                         </div>
-
+                        {isOptionsOpen[2] &&
+                            <div className={styles.underOptionsContainer}>
+                                <div className={styles.priceContainer} >
+                                    <input className={styles.price} type="text" placeholder='Min $' onChange={(e) => handleMinPrice(e)} />
+                                    to
+                                    <input className={styles.price} type="text" placeholder='Max $' onChange={(e) => handleMaxPrice(e)} />
+                                    <div className={styles.buttonPrice} onClick={handleFilterPrice}>Filter</div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

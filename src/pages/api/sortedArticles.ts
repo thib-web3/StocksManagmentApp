@@ -17,12 +17,10 @@ export default async function getSortedArticles(
     try {
         const query = req.body.query
         const data = req.body.data
-        console.log('querydata', query, data)
         const [rows] = await connection.query(
             `SELECT * FROM articles WHERE ${query} = '${data}'`,
             [query, data]
         )
-        console.log(res.json(rows))
         return res.json(rows)
     } catch (error) {
         console.error('Error getting data:', error)
