@@ -45,8 +45,8 @@ a {
 }
 
 .buttonCta:hover {
-  background-color: #322783ef;
-  border: 2px solid #322783ef;
+  background-color: rgb(41, 32, 109);
+  border: 2px solid rgba(41, 32, 109);
 }
 
 .button {

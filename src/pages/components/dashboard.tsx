@@ -9,7 +9,7 @@ const Dashboard = ({ articles }: Articles) => {
 
     return (
         <div className={styles.dashboard}>
-            <StatsSum />
+            <StatsSum articles={articles} />
             <Search articles={articles} />
             <Items />
         </div>

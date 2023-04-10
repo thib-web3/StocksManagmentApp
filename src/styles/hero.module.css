@@ -70,3 +70,8 @@
     cursor: pointer;
     height: 50px;
 }
+
+.buttonDemo:hover {
+    border: 2px solid #BABABA;
+    transition: all ease-in-out 0.2s;
+}

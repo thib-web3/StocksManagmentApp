@@ -45,10 +45,16 @@
     font-size: 16px;
     line-height: 24px;
     text-indent: 20px;
+    transition: all ease-in-out 0.3s;
 }
 
 .searchBar::placeholder {
     color: #BABABA;
+}
+
+.searchBar:hover {
+    background: #e6e9ec;
+    transition: all ease-in-out 0.3s;
 }
 
 .filters {

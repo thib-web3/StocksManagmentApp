@@ -112,6 +112,12 @@
     right: 15px;
     bottom: 15px;
     cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.details:hover {
+    background: linear-gradient(90deg, #3a3188 4.29%, #0a015e 115.23%);
+    transition: all ease-in-out 0.3s;
 }
 
 .buttonContainer {
@@ -134,4 +140,10 @@
     align-items: center;
     height: 40px;
     cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.addSlice:hover {
+    background: linear-gradient(90deg, #3a3188 4.29%, #0a015e 115.23%);
+    transition: all ease-in-out 0.3s;
 }

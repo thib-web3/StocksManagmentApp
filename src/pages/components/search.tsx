@@ -13,8 +13,7 @@ const Search = ({ articles }: Articles) => {
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
     const [suppliers, setSuppliers] = useState<Supplier[]>([])
     const [supplierName, setSupplierName] = useState('')
-    const { searchbar, setSearchbar, setData, setItems } = useCtx()
-
+    const { searchbar, setSearchbar, setData, setItems, data } = useCtx()
 
 
     const handleSymbol = async (index: number) => {
@@ -31,10 +30,26 @@ const Search = ({ articles }: Articles) => {
     const handleCheckbox1 = async (item: Supplier, index: number) => {
         isFilter1Checked[index] = !isFilter1Checked[index];
         setIsFilter1Checked(isFilter1Checked)
+        // const count = isFilter1Checked.reduce((a, b) => b ? a + 1 : a, 0);
 
-        const sortedArticles = await getSortedArticles('Supplier', item.NOM)
-        setData(sortedArticles)
-        setItems(sortedArticles)
+
+
+        const suppliersSelected = suppliers?.filter((item: Supplier) => {
+            return isFilter1Checked[suppliers.indexOf(item)];
+        }).map((item: Supplier) => {
+            return item.NOM;
+        });
+
+        const promises = suppliersSelected.map(async (supplier) => {
+            const sortedArticles = await getSortedArticles('Supplier', supplier);
+            return sortedArticles;
+        });
+        const sortedArticles = await Promise.all(promises);
+        const combinedArray = sortedArticles.reduce((acc, val) => acc.concat(val), []);
+
+        setData(combinedArray)
+        setItems(combinedArray)
+
 
         const checkFilters = isFilter1Checked.find((filter) =>
             filter == true
