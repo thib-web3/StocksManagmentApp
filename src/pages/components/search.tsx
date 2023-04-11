@@ -62,16 +62,23 @@ const Search = ({ articles }: Articles) => {
     }
     const handleCheckbox2 = (index: number) => {
         isFilter2Checked[index] = !isFilter2Checked[index];
-        console.log('isFilter2Checked', isFilter2Checked)
         setIsFilter2Checked(isFilter2Checked)
-        let newArr = []
-        console.log(index)
-        if (index = 0) {
+        let newArr: Article[] = []
+        if (isFilter2Checked[0] == true && index == 0) {
             newArr = sortByPriceAscending(items)
-        } else {
+        } else if (isFilter2Checked[1] == true && index == 1) {
             newArr = sortByPriceDescending(items)
         }
-        console.log(newArr)
+        if (newArr.length > 0) {
+            setData(newArr)
+            setItems(newArr)
+        }
+        const isTrue = isFilter2Checked?.find((item: any) =>
+            item == true)
+        if (isTrue == undefined) {
+            setData(articles)
+            setItems(articles)
+        }
     }
 
     const handleSearchBar = (e: any) => {
@@ -93,7 +100,6 @@ const Search = ({ articles }: Articles) => {
     }
 
     const handleFilterPrice = () => {
-        console.log(minPrice, maxPrice)
         if (minPrice > 0 && maxPrice > 0) {
             if (maxPrice > minPrice) {
                 const arr = items.filter((item: Article) => parseFloat(item.Price) >= minPrice && parseFloat(item.Price) <= maxPrice)
