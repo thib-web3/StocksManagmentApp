@@ -27,9 +27,6 @@ const Home = ({ articles }: Articles) => {
         :
         <Dashboard articles={articles} />
       }
-      {/* <OrderPage orders={orders} />
-          <OrderForm /> */}
-
     </Layout>
   );
 };
