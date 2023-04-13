@@ -25,3 +25,8 @@ export interface Supplier {
     TEL: string
     PAY: string
 }
+
+export interface Filter {
+    name: string
+    info: any
+}

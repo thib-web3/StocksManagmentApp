@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Article, Item, Articles } from '../types/types';
+import { Article, Item, Articles, Filter } from '../types/types';
 
 interface MyContext {
     isConnected: boolean;
@@ -19,6 +19,8 @@ interface MyContext {
     setItemDetailsClicked: React.Dispatch<React.SetStateAction<boolean>>;
     data: Article[] | undefined;
     setData: React.Dispatch<React.SetStateAction<Article[] | undefined>>
+    setFilters: React.Dispatch<React.SetStateAction<Filter[]>>;
+    filters: Filter[]
 }
 
 const Context = createContext<MyContext>({
@@ -38,8 +40,9 @@ const Context = createContext<MyContext>({
     itemDetailsClicked: false,
     setItemDetailsClicked: () => { },
     data: undefined,
-    setData: () => { }
-
+    setData: () => { },
+    setFilters: () => { },
+    filters: []
 });
 
 
@@ -52,6 +55,7 @@ export const Ctx = ({ children }: any) => {
     const [selectedItem, setSelectedItem] = useState<Article | undefined>()
     const [itemDetailsClicked, setItemDetailsClicked] = useState(false);
     const [data, setData] = useState<Article[] | undefined>()
+    const [filters, setFilters] = useState<Filter[]>([])
 
     const connect = async () => {
         setIsConnected(true);
@@ -93,7 +97,9 @@ export const Ctx = ({ children }: any) => {
         itemDetailsClicked,
         setItemDetailsClicked,
         data,
-        setData
+        setData,
+        filters,
+        setFilters
     }
     return (
         <Context.Provider value={values}>

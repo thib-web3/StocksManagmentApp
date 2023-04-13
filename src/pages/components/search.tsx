@@ -3,7 +3,7 @@ import { useCtx } from '../auth/ctx';
 import { useEffect, useState } from 'react';
 import downArrow from '../../images/downArrow.png'
 import Image from 'next/image'
-import { Article, Articles, Supplier } from '../types/types';
+import { Article, Articles, Filter, Supplier } from '../types/types';
 import { getData, getSortedArticles } from '../calls/dbCalls';
 import { toast } from 'react-hot-toast';
 
@@ -13,10 +13,20 @@ const Search = ({ articles }: Articles) => {
     const [isFilter2Checked, setIsFilter2Checked] = useState([false]);
     const [isOptionsOpen, setIsOptionsOpen] = useState([false])
     const [suppliers, setSuppliers] = useState<Supplier[]>([])
-    const [supplierName, setSupplierName] = useState('')
-    const { searchbar, setSearchbar, setData, setItems, data, items } = useCtx()
+    const { searchbar,
+        setSearchbar,
+        setData,
+        setItems,
+        items,
+        filters,
+        setFilters
+    } = useCtx()
+
     const [minPrice, setMinPrice] = useState(0)
     const [maxPrice, setMaxPrice] = useState(0)
+    // todo: before applying a filter check if there is already active filters
+    // todo: store all active filters in an array of objects
+
 
     const handleSymbol = async (index: number) => {
         if (index == 0) {
@@ -48,8 +58,9 @@ const Search = ({ articles }: Articles) => {
 
         setData(combinedArray)
         setItems(combinedArray)
-
-
+        setIsFilter2Checked([false])
+        setMinPrice(0)
+        setMaxPrice(0)
         const checkFilters = isFilter1Checked.find((filter) =>
             filter == true
         )
@@ -61,7 +72,15 @@ const Search = ({ articles }: Articles) => {
         }
     }
     const handleCheckbox2 = (index: number) => {
-        isFilter2Checked[index] = !isFilter2Checked[index];
+        if (index == 0) {
+            isFilter2Checked[0] = !isFilter2Checked[0]
+            isFilter2Checked[1] = false
+        } else if (index == 1) {
+            isFilter2Checked[0] = false
+            isFilter2Checked[1] = !isFilter2Checked[1]
+        }
+        console.log(isFilter2Checked)
+        // isFilter2Checked[index] = !isFilter2Checked[index];
         setIsFilter2Checked(isFilter2Checked)
         let newArr: Article[] = []
         if (isFilter2Checked[0] == true && index == 0) {
@@ -114,7 +133,6 @@ const Search = ({ articles }: Articles) => {
             toast.error('Wrong min and max price!')
         }
     }
-    // todo: descending not working
     function sortByPriceDescending(items: Article[]) {
         return items.sort((a, b) => parseFloat(b.Price) - parseFloat(a.Price));
     }
