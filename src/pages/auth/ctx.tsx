@@ -20,7 +20,11 @@ interface MyContext {
     data: Article[] | undefined;
     setData: React.Dispatch<React.SetStateAction<Article[] | undefined>>
     setFilters: React.Dispatch<React.SetStateAction<Filter[]>>;
-    filters: Filter[]
+    filters: Filter[];
+    stock: any;
+    setStock: React.Dispatch<React.SetStateAction<any>>;
+    supplier: any;
+    setSupplier: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const Context = createContext<MyContext>({
@@ -42,7 +46,11 @@ const Context = createContext<MyContext>({
     data: undefined,
     setData: () => { },
     setFilters: () => { },
-    filters: []
+    filters: [],
+    stock: {},
+    setStock: () => { },
+    supplier: '',
+    setSupplier: () => { }
 });
 
 
@@ -56,6 +64,8 @@ export const Ctx = ({ children }: any) => {
     const [itemDetailsClicked, setItemDetailsClicked] = useState(false);
     const [data, setData] = useState<Article[] | undefined>()
     const [filters, setFilters] = useState<Filter[]>([])
+    const [stock, setStock] = useState<any>()
+    const [supplier, setSupplier] = useState()
 
     const connect = async () => {
         setIsConnected(true);
@@ -99,7 +109,11 @@ export const Ctx = ({ children }: any) => {
         data,
         setData,
         filters,
-        setFilters
+        setFilters,
+        stock,
+        setStock,
+        supplier,
+        setSupplier
     }
     return (
         <Context.Provider value={values}>

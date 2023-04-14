@@ -9,7 +9,6 @@ import { Ctx, useCtx } from '../auth/ctx';
 
 const isRegistered = async (email: string, password: string) => {
     const user = await getUser(email, password)
-    console.log(user)
     if (user.length > 0) {
         return user
     } else {

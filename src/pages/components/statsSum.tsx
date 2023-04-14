@@ -2,7 +2,6 @@ import styles from '@/styles/statsSum.module.css'
 import { useCtx } from '../auth/ctx';
 import Image from 'next/image'
 import user from '../../images/user.png'
-import Search from './search';
 import { Articles } from '../types/types';
 
 const StatsSum = ({ articles }: Articles) => {

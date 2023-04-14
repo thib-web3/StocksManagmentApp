@@ -18,15 +18,10 @@ const Search = ({ articles }: Articles) => {
         setData,
         setItems,
         items,
-        filters,
-        setFilters
     } = useCtx()
 
     const [minPrice, setMinPrice] = useState(0)
     const [maxPrice, setMaxPrice] = useState(0)
-    // todo: before applying a filter check if there is already active filters
-    // todo: store all active filters in an array of objects
-
 
     const handleSymbol = async (index: number) => {
         if (index == 0) {
@@ -54,6 +49,7 @@ const Search = ({ articles }: Articles) => {
             return sortedArticles;
         });
         const sortedArticles = await Promise.all(promises);
+
         const combinedArray = sortedArticles.reduce((acc, val) => acc.concat(val), []);
 
         setData(combinedArray)
@@ -79,8 +75,7 @@ const Search = ({ articles }: Articles) => {
             isFilter2Checked[0] = false
             isFilter2Checked[1] = !isFilter2Checked[1]
         }
-        console.log(isFilter2Checked)
-        // isFilter2Checked[index] = !isFilter2Checked[index];
+
         setIsFilter2Checked(isFilter2Checked)
         let newArr: Article[] = []
         if (isFilter2Checked[0] == true && index == 0) {

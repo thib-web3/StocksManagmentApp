@@ -4,18 +4,23 @@ import box from '../../images/test.png'
 import { useCtx } from '../auth/ctx';
 import { Article, Item } from '../types/types';
 import { useState } from 'react';
+import { getStocks, getSupplier } from '../calls/dbCalls';
 
 const Items = () => {
-    const { items, setSelectedItem, setItemDetailsClicked, itemDetailsClicked } = useCtx()
+    const { items, setSelectedItem, setItemDetailsClicked, itemDetailsClicked, setStock, setSupplier } = useCtx()
     const [slice, setSlice] = useState(12)
     const handleSlice = () => {
         setSlice(slice + 12)
         console.log(slice)
     }
 
-    const openDetails = (item: Article) => {
-        setItemDetailsClicked(!itemDetailsClicked)
+    const openDetails = async (item: Article) => {
+        const stock = await getStocks(item.REF)
+        const supplier = await getSupplier(item.Supplier)
+        setStock(stock[0])
+        setSupplier(supplier[0])
         setSelectedItem(item)
+        setItemDetailsClicked(!itemDetailsClicked)
     }
     return (
         <div className={styles.container}>
@@ -50,5 +55,4 @@ const Items = () => {
         </div>
     );
 };
-
 export default Items;

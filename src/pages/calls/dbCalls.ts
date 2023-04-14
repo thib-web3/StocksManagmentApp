@@ -16,6 +16,28 @@ export const getSortedArticles = async (query: string, data: string) => {
     return res.json()
 }
 
+export const getStocks = async (data: string) => {
+    const res = await fetch(`${localhost}/api/stocks`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+    })
+    return res.json()
+}
+
+export const getSupplier = async (data: string) => {
+    const res = await fetch(`${localhost}/api/sortedSupplier`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+    })
+    return res.json()
+}
+
 export const getUser = async (email: string, password: string) => {
     console.log('getUSer', email, password)
     const res = await fetch(`${localhost}/api/getUser`, {
